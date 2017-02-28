@@ -7,12 +7,14 @@ module.exports = function(application) {
                 return console.error('erro ao obter cliente do pool');
             }
 
-            var noticiasModel = application.app.models.noticiasModel;
-            noticiasModel.getNoticia(client,  function(err, result) {
+            var dao = new application.app.models.NoticiasDAO(client);
+            dao.getNoticia(function(err, result) {
                 done(err);
+
                 if (err) {
                     return console.error('error running query', err);
                 }
+
                 res.render("noticias/noticia", {noticia : result.rows[0]});
             });
         });

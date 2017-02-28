@@ -12,8 +12,8 @@ module.exports = function (application) {
                 return console.error('erro ao obter cliente do pool');
             }
 
-            var noticiasModel = application.app.models.noticiasModel;
-            noticiasModel.salvarNoticia(client, noticia,  function(err, result) {
+            var dao = new application.app.models.NoticiasDAO(client);
+            dao.salvarNoticia(noticia,  function(err, result) {
                 done(err);
 
                 if (err) {
