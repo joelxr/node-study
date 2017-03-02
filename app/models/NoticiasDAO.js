@@ -2,12 +2,16 @@ function NoticiasDAO (client) {
     this._client = client;
 }
 
-NoticiasDAO.prototype.getNoticia = function(callback) {
-    this._client.query('select * from noticias where id_noticia = 1', callback);
+NoticiasDAO.prototype.getNoticia = function(query, callback) {
+    this._client.query("select * from noticias where id_noticia = " + query.id_noticia, callback);
 }
 
 NoticiasDAO.prototype.getNoticias = function(callback) {
-    this._client.query('select * from noticias', callback);
+    this._client.query('select * from noticias order by data_criacao desc', callback);
+}
+
+NoticiasDAO.prototype.getUltimasNoticias = function (callback) {
+    this._client.query('select * from noticias order by data_criacao desc limit 5', callback);
 }
 
 NoticiasDAO.prototype.salvarNoticia = function (noticia, callback) {
